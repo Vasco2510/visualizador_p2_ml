@@ -16,8 +16,8 @@ TMDB_API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYWE2ZWRjNmFhY2I3YmRmYmY5ZmIzZTQ
 @st.cache_data
 def cargar_datos():
     """Carga ambos datasets de clustering"""
-    pca_df = pd.read_csv("pca_movies_with_clusters.csv")
-    nmf_df = pd.read_csv("nmf_movies_with_clusters.csv")
+    pca_df = pd.read_csv("movies_w_clusters/movies_clustered_pca_3d.csv")
+    nmf_df = pd.read_csv("movies_w_clusters/nmf_movies_with_clusters.csv")
     return pca_df, nmf_df
 
 def get_tmdb_poster(tmdb_id):
@@ -139,7 +139,8 @@ if pelicula_buscada:
             mostrar_info_pelicula(pelicula_info)
         
         # Obtener recomendaciones
-        st.subheader(f"🎯 Películas Recomendadas (Cluster {algoritmo})")
+        st.subheader(f"🎯 Películas representativas del cluster {pelicula_info['cluster']}")
+        st.subheader(f"(Cluster {algoritmo})")
         recomendaciones = obtener_recomendaciones(tmdb_id, dataset, num_recomendaciones)
         
         if not recomendaciones.empty:
